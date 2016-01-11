@@ -43,4 +43,10 @@ public class HomeController {
 		return "Hi There!";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/logoutSuccess", method = RequestMethod.GET) 
+	public String logoutSuccess() {
+		return "You are logged out";
+	}
+	
 }

@@ -7,8 +7,10 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<security:http use-expressions="true">
+		<security:intercept-url pattern="/logoutSuccess" access="permitAll"/>
 		<security:intercept-url pattern="/**" access="isAuthenticated()"/>
 		<security:form-login/>
+		<security:logout logout-success-url="/logoutSuccess" logout-url="/logout"/>
 	</security:http>
 	<security:authentication-manager><security:authentication-provider><security:user-service><security:user name="anil" authorities="admin" password="anil"/></security:user-service></security:authentication-provider></security:authentication-manager>
 </beans>
