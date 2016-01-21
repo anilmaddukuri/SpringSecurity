@@ -16,14 +16,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <title>Start Page</title>
 	<script type="text/javascript" src="static/handler.js">
-		/*var handler = function(event) {
+		/* var handler = function(event) {
 			console.log(event.type);
 			console.log("clicked");
 			event.preventDefault();
 		};
 		$(function() {
 			$('.form-signin').on('click', handler);
-		});*/
+		}); */
 	</script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,9 +40,9 @@
 				<h2 class="form-signin-heading" style="margin-top: 35px;">User Registration App</h2>
 				<article style="font-size: medium;">This is a sample application for demonstrating the Spring web and Spring security.</article>
 			</div>
-			<div class="col-lg-6">
+			<div id = "formDiv" class="col-lg-6">
 
-					<form id="login" class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
+					<form class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
 						
 						<h2 class="form-signin-heading">Please sign in</h2>
 						<label for="inputEmail" class="sr-only">Email address</label>
@@ -56,11 +56,11 @@
 								Remember me
 							</label>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	In</button>
+						<button class="btn btn-lg btn-primary btn-block" type="submit" id="signIn">Sign	In</button>
 					</form>
 					<p style="padding-left: 130px; margin: 0 0 0 0px">Dont have an account?</p>
 					<form action="#" class="form-signin" style="max-width: 330px; padding: 15px; margin: 0 auto;">
-						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign	Up</button>
+						<button class="btn btn-lg btn-primary btn-block" type="button" id="signUp">Sign Up</button>
 					</form>
 
 			</div>
