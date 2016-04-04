@@ -1,0 +1,130 @@
+package com.anil;
+
+import java.util.Scanner;
+
+
+public class ThreadPractice {
+
+	public static void main(String[] args) {
+		EvenOddPrinter f = new EvenOddPrinter();
+		Scanner sc = new Scanner(System.in);
+		int n = Integer.parseInt(sc.nextLine());
+		Runnable even = new Runnable() {
+			@Override
+			public void run() {
+				f.printEvenNumber(n);
+			}
+		};
+		
+		Runnable odd = new Runnable() {
+			
+			@Override
+			public void run() {
+				f.printOddNumber(n);
+				
+			}
+		};
+		Thread t1 = new Thread(even, "Even Thread");
+		Thread t2 =  new Thread(odd, "Odd THread");
+		t2.start();
+		t1.start();
+		sc.close();
+	}
+	
+	class EvenThread {
+		
+	}
+}
+
+class EvenOddPrinter {
+	
+	private int odd = 1;
+	private int even = 2;
+	
+	private boolean waitForEvenNumberToPrint = true;
+	private boolean waitForOddNumberToPrint = true;
+	
+	/*public void printOddNumber(int n) {
+		while(odd <= n) {			
+			synchronized (this) {
+				try {
+					System.out.println(odd);
+					odd = odd + 2;
+					wait();
+					notify();
+				} catch (InterruptedException e) {
+					// never comes here as there are only 2 threads
+					e.printStackTrace();
+				}
+			}
+		}
+	}*/
+	
+	public void printOddNumber(int n) {
+		if(n%2 == 0) {
+			//n is even
+			n = n-1;
+		}
+		while(odd <= n) {
+			synchronized (this) {
+				System.out.println(odd);
+				odd += 2;
+				waitForOddNumberToPrint = false;
+				while(waitForEvenNumberToPrint) {
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				waitForEvenNumberToPrint = true;
+				notify();
+			}
+		}
+	}
+	
+	/*public void printEvenNumber(int n) {
+		while(even <= n) {
+			synchronized (this) {
+				System.out.println(even);
+				even = even + 2;
+				notify();
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}*/
+	
+	public void printEvenNumber(int n) {
+		if(n%2 != 0) {
+			//n is odd
+			n = n-1;
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		while(even <= n) {
+			synchronized (this) {
+				waitForEvenNumberToPrint = false;
+				while(waitForOddNumberToPrint) {
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				System.out.println(even);
+				even +=2;
+				waitForOddNumberToPrint = true;
+				notify();
+			}
+		}
+	}
+}
